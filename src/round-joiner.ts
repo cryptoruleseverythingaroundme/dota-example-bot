@@ -99,10 +99,13 @@ export class RoundJoiner {
       ...(this.options.runtimeConfig.skin !== null
         ? { skin: this.options.runtimeConfig.skin }
         : {}),
+      ...(this.options.runtimeConfig.equippedItem !== null
+        ? { equippedItem: this.options.runtimeConfig.equippedItem }
+        : {}),
     };
 
     console.log(
-      `[round] joining round=${roundNumber} lane=${joinLane} class=${payload.heroClass} skin=${payload.skin ?? "none"}`,
+      `[round] joining round=${roundNumber} lane=${joinLane} class=${payload.heroClass} skin=${payload.skin ?? "none"} item=${payload.equippedItem ?? "none"}`,
     );
 
     try {

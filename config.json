@@ -3,5 +3,6 @@
   "websocketUrl": "wss://wc2-agentic-dev-3o6un.ondigitalocean.app/?game=3",
   "abilities": ["tornado", "fireball", "raise_skeleton", "fortitude"],
   "heroClass": "mage",
-  "skin": null
+  "skin": null,
+  "equippedItem": null
 }

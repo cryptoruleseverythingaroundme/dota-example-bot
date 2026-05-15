@@ -33,7 +33,7 @@ async function main(): Promise<void> {
   });
 
   console.log(
-    `[startup] bot=${runtimeConfig.botName} ws=${runtimeConfig.websocketUrl} api=${runtimeConfig.apiBaseUrl} intervalMs=${runtimeConfig.decisionIntervalMs}`,
+    `[startup] bot=${runtimeConfig.botName} ws=${runtimeConfig.websocketUrl} api=${runtimeConfig.apiBaseUrl} intervalMs=${runtimeConfig.decisionIntervalMs} skin=${runtimeConfig.skin ?? "none"} item=${runtimeConfig.equippedItem ?? "none"}`,
   );
 
   websocketClient.connect();

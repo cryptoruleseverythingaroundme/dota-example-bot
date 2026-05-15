@@ -8,6 +8,7 @@ interface FileConfig {
   websocketUrl: string;
   heroClass: HeroClass;
   skin: string | null;
+  equippedItem: string | null;
 }
 
 export interface RuntimeConfig extends FileConfig {
@@ -71,9 +72,19 @@ async function loadFileConfig(): Promise<FileConfig> {
     throw new Error("config.json skin must be a string or null");
   }
 
+  const equippedItem = parsedConfig.equippedItem ?? null;
+
+  if (
+    equippedItem !== null &&
+    typeof equippedItem !== "string"
+  ) {
+    throw new Error("config.json equippedItem must be a string or null");
+  }
+
   return {
     abilities: parsedConfig.abilities,
     decisionIntervalMs: parsedConfig.decisionIntervalMs,
+    equippedItem,
     heroClass: parsedConfig.heroClass,
     skin: parsedConfig.skin,
     websocketUrl: parsedConfig.websocketUrl,

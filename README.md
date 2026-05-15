@@ -39,7 +39,7 @@ Token
 
 1. Copy `.env.example` to `.env`.
 2. Fill in `BOT_NAME` and `API_KEY`.
-3. Adjust `config.json` for `websocketUrl`, `decisionIntervalMs`, `heroClass`, `skin`, and ordered `abilities`.
+3. Adjust `config.json` for `websocketUrl`, `decisionIntervalMs`, `heroClass`, `skin`, optional `equippedItem`, and ordered `abilities`.
 
 ## Decision Input Shape
 
@@ -61,6 +61,8 @@ The bot joins each active round over HTTP with `POST /api/strategy/deployment`, 
 
 - `heroClass` comes from `config.json`.
 - `skin` comes from `config.json` and is omitted from the join request when set to `null`.
+- `equippedItem` comes from `config.json` and is omitted from the join request when set to `null`.
+- Current live item IDs are `ring_of_regen` and `rat_skull_necklace`.
 - The initial join lane is taken from the decision module when it returns `switchLane`.
 - When snapshot `winner` clears after a finished game, the bot detects the new round and sends a fresh join request automatically.
 

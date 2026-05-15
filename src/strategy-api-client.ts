@@ -6,6 +6,7 @@ interface JoinDeploymentRequest {
   heroLane: Lane;
   preferredGameId?: number;
   skin?: string;
+  equippedItem?: string;
 }
 
 interface DeploymentSuccessResponse {
