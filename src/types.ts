@@ -52,6 +52,8 @@ export interface UnitSnapshot {
   recallShielded?: boolean;
   bloodlusted?: boolean;
   inDefensiveAura?: boolean;
+  sprinting?: boolean;
+  strolling?: boolean;
 }
 
 export interface AbilitySnapshot {
@@ -126,6 +128,10 @@ export interface HeroScoreboardEntry {
   pfpUrl?: string;
   profileUrl?: string;
   recallCooldownMs?: number;
+  sprintRemainingMs?: number;
+  sprintCooldownMs?: number;
+  strollRemainingMs?: number;
+  strollCooldownMs?: number;
   tokenHolder?: boolean;
   ringOfRegen?: boolean;
   totalDamage?: number;
@@ -138,10 +144,16 @@ export interface HeroScoreboardEntry {
   kills?: number;
   deaths?: number;
   assists?: number;
+  equippedItem?: string | null;
+  ratSkullStacks?: number;
+  soulHarvestStacks?: number;
+  soulHarvestStackCap?: number;
 }
 
 export type BotCommand =
   | { type: "recall" }
+  | { type: "sprint" }
+  | { type: "stroll" }
   | { type: "switchLane"; lane: Lane }
   | { type: "ping"; pingType: Lane | "base" }
   | { type: "abilityChoice"; ability: string };

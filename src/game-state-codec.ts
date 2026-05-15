@@ -231,6 +231,14 @@ function decodeCompactUnit(value: unknown[]): UnitSnapshot | null {
     unit.inDefensiveAura = true;
   }
 
+  if (hasFlag(flags, 32)) {
+    unit.sprinting = true;
+  }
+
+  if (hasFlag(flags, 64)) {
+    unit.strolling = true;
+  }
+
   if (!hasFlag(flags, 8)) {
     return unit;
   }
@@ -556,6 +564,10 @@ function decodeHeroScoreboardEntry(value: unknown): HeroScoreboardEntry | null {
     const kills = numberOrUndefined(value[25]);
     const deaths = numberOrUndefined(value[26]);
     const assists = numberOrUndefined(value[27]);
+    const sprintRemainingMs = numberOrUndefined(value[32]);
+    const sprintCooldownMs = numberOrUndefined(value[33]);
+    const strollRemainingMs = numberOrUndefined(value[34]);
+    const strollCooldownMs = numberOrUndefined(value[35]);
 
     if (
       name === null ||
@@ -649,6 +661,30 @@ function decodeHeroScoreboardEntry(value: unknown): HeroScoreboardEntry | null {
     const skin = stringOrNull(value[23]);
     entry.skin = skin ?? null;
 
+    const equippedItem = stringOrNull(value[28]);
+
+    if (equippedItem !== null) {
+      entry.equippedItem = equippedItem;
+    }
+
+    const ratSkullStacks = numberOrUndefined(value[29]);
+
+    if (ratSkullStacks !== undefined) {
+      entry.ratSkullStacks = ratSkullStacks;
+    }
+
+    const soulHarvestStacks = numberOrUndefined(value[30]);
+
+    if (soulHarvestStacks !== undefined) {
+      entry.soulHarvestStacks = soulHarvestStacks;
+    }
+
+    const soulHarvestStackCap = numberOrUndefined(value[31]);
+
+    if (soulHarvestStackCap !== undefined) {
+      entry.soulHarvestStackCap = soulHarvestStackCap;
+    }
+
     if (rank !== undefined) {
       entry.rank = rank;
     }
@@ -663,6 +699,22 @@ function decodeHeroScoreboardEntry(value: unknown): HeroScoreboardEntry | null {
 
     if (assists !== undefined) {
       entry.assists = assists;
+    }
+
+    if (sprintRemainingMs !== undefined) {
+      entry.sprintRemainingMs = sprintRemainingMs;
+    }
+
+    if (sprintCooldownMs !== undefined) {
+      entry.sprintCooldownMs = sprintCooldownMs;
+    }
+
+    if (strollRemainingMs !== undefined) {
+      entry.strollRemainingMs = strollRemainingMs;
+    }
+
+    if (strollCooldownMs !== undefined) {
+      entry.strollCooldownMs = strollCooldownMs;
     }
 
     return entry;
@@ -717,6 +769,15 @@ function decodeHeroScoreboardEntry(value: unknown): HeroScoreboardEntry | null {
     alive,
     colorIndex,
     abilities: Array.isArray(value.abilities) ? decodeAbilities(value.abilities) : [],
+    recallCooldownMs: numberOrUndefined(value.recallCooldownMs),
+    sprintRemainingMs: numberOrUndefined(value.sprintRemainingMs),
+    sprintCooldownMs: numberOrUndefined(value.sprintCooldownMs),
+    strollRemainingMs: numberOrUndefined(value.strollRemainingMs),
+    strollCooldownMs: numberOrUndefined(value.strollCooldownMs),
+    equippedItem: stringOrNull(value.equippedItem) ?? undefined,
+    ratSkullStacks: numberOrUndefined(value.ratSkullStacks),
+    soulHarvestStacks: numberOrUndefined(value.soulHarvestStacks),
+    soulHarvestStackCap: numberOrUndefined(value.soulHarvestStackCap),
   };
 }
 

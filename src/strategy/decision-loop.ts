@@ -3,8 +3,10 @@ import type { BotCommand } from "../types.js";
 import { GameWebSocketClient } from "../websocket-client.js";
 import { buildDecisionSnapshot, type DecisionSnapshot } from "./decision-snapshot.js";
 
+export type DecisionResult = BotCommand | null;
+
 export interface DecisionMaker {
-  decide(input: DecisionInput): BotCommand | null;
+  decide(input: DecisionInput): DecisionResult;
 }
 
 export interface DecisionInput {

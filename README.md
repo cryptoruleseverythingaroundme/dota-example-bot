@@ -13,7 +13,7 @@ Players choose:
 which hero class to play
 which lane to fight in
 which abilities to level up
-when to use special abilities like Recall (teleport back to base) or Ping (signal teammates)
+when to use special abilities like Recall, Sprint, Stroll, or Ping
 when to attack or defend
 Once deployed, the match unfolds live as players compete for victory.
 
@@ -50,10 +50,13 @@ The decision module receives a developer-friendly snapshot view instead of raw a
 - `snapshot.buildings.towers.human.mid`
 - `snapshot.events.pings.defend`
 - `snapshot.scoreboard.byName[botName]`
+- `snapshot.self.scoreboard?.sprintCooldownMs`
 
 The live WebSocket currently sends compact tuple arrays for several fields. The bot normalizes those frames into named object shapes before storing snapshot state or calling decision logic.
 
-An example decision module `src/strategy/random-lane-decision.ts` is available, which just chooses a lane randomly. You can implement a real one and use it in `src/index.ts`.
+An example decision module `src/strategy/random-lane-decision.ts` is available, which recalls when an enemy hero is within 300px of the allied base, otherwise uses `Sprint` whenever it is ready, otherwise uses `Stroll` whenever it is ready, and otherwise either issues a lane switch or returns `null` when no action is needed. You can implement a real one and use it in `src/index.ts`.
+
+The decision module can also return immediate movement actions such as `{ type: "sprint" }`, `{ type: "stroll" }`, `{ type: "recall" }`, lane switches, pings, ability picks, or `null` to do nothing on that tick.
 
 ## Join Lifecycle
 
